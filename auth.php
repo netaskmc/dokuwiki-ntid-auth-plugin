@@ -170,10 +170,6 @@ class auth_plugin_ntid extends AuthPlugin
         // remove the session secret cookie
         setcookie('ntid_session_secret', '', time() - 3600, '/');
 
-        if ($response === null) {
-            return null;
-        }
-
         return true;
     }
 
