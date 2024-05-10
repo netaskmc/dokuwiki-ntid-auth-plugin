@@ -44,7 +44,7 @@ class auth_plugin_ntid extends AuthPlugin
 
         // FIRST, check if the session secret is set
         if (!isset($_COOKIE['ntid_session_secret'])) {
-            msg("Invalid session", -1);
+            // msg("Invalid session", -1);
             auth_logoff();
             return false;
         }
@@ -169,6 +169,7 @@ class auth_plugin_ntid extends AuthPlugin
 
         // remove the session secret cookie
         setcookie('ntid_session_secret', '', time() - 3600, '/');
+
 
         return true;
     }
