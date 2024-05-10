@@ -1,0 +1,7 @@
+base   ntid
+author Mlntcandy (NeTask Collective)
+email  me@mlntcandy.com
+date   2024-05-09
+name   ntid auth plugin
+desc   Login to DokuWiki with NeTask ID plugin
+url    https://github.com/netaskmc/dokuwiki-ntid-auth-plugin/
