@@ -166,12 +166,13 @@ class auth_plugin_ntid extends AuthPlugin
         $response = $this->ntidRequest('invalidate', [
             'session_secret' => $_COOKIE['ntid_session_secret']
         ]);
-        if ($response === null) {
-            return null;
-        }
 
         // remove the session secret cookie
         setcookie('ntid_session_secret', '', time() - 3600, '/');
+
+        if ($response === null) {
+            return null;
+        }
 
         return true;
     }
