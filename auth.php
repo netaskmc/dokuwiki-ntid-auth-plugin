@@ -42,15 +42,14 @@ class auth_plugin_ntid extends AuthPlugin
         // besides, this code runs on the same server as the main server
         // so we don't have to worry about delays or anything
 
-        // FIRST, check 
+        // FIRST, check if the session secret is set
+        if (!isset($_COOKIE['ntid_session_secret'])) {
+            msg("Invalid session", -1);
+            auth_logoff();
+            return false;
+        }
 
         $session_secret = $_COOKIE['ntid_session_secret'];
-        // check if the session secret is set
-        if ($session_secret === null) {
-            // msg("Invalid session", -1);
-            // auth_logoff();
-            return true;
-        }
 
         // send a request to the ntid instance { "session_secret": "..." }
         $response = $this->ntidRequest('validate', [
@@ -59,7 +58,7 @@ class auth_plugin_ntid extends AuthPlugin
 
         if ($response === null) {
             msg("Invalid session", -1);
-            // auth_logoff();
+            auth_logoff();
             return null;
         }
 
@@ -160,6 +159,10 @@ class auth_plugin_ntid extends AuthPlugin
 
     public function logOff()
     {
+        if (!isset($_COOKIE['ntid_session_secret'])) {
+            return true;
+        }
+
         $response = $this->ntidRequest('invalidate', [
             'session_secret' => $_COOKIE['ntid_session_secret']
         ]);
